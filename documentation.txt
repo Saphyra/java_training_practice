@@ -1,0 +1,41 @@
+Application: WebShop
+
+Feature list
+    Registration
+    Login
+        Remember me
+    Forgot my password
+    Logout
+    Auto-logout when no interaction
+    Account settings
+        Change email
+        Change password
+        Delete account
+    Product
+        Name
+        Description
+        Brand
+        Image
+        Price
+        Categories
+        Stock
+        Rating and feedback
+    User features
+        Browse -> Guest user
+            Search
+            Order by
+                rating
+                Name
+                Price
+                Stock
+        Basket
+        Highlight already bought items
+        Wish list
+        Order
+        Provide rating and feedback
+        Order history
+        Browse history
+    Admin panel
+        Create product
+        Remove product
+        Edit product
