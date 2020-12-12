@@ -10,7 +10,7 @@ import java.util.UUID;
 public class Account {
     @Id
     private UUID userId;
-    private String username;
+    private String username; //nick
     private String password;
     private String email;
     private String currency;

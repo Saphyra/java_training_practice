@@ -10,7 +10,7 @@ import java.util.UUID;
 public class ShippingInformation {
     @Id
     private UUID userId;
-    private String name;
+    private String name; //real nev
     private String country;
     private String zipCode;
     private String city;
