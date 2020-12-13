@@ -38,7 +38,7 @@
             <column name="floor" type="text"/>
             <column name="door" type="text"/>
             <column name="phone_number" type="text"/>
-            <column name="birth_date" type="text"/>
+            <column name="birth_date" type="date"/>
         </createTable>
         <addPrimaryKey tableName="shipping_information" columnNames="user_id" schemaName="public"/>
     </changeSet>
