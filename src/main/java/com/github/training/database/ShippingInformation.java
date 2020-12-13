@@ -3,6 +3,7 @@ package com.github.training.database;
 import lombok.Data;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
@@ -19,5 +20,5 @@ public class ShippingInformation {
     private String floor;
     private String door;
     private String phoneNumber;
-    private String birthDate;
+    private LocalDate birthDate;
 }

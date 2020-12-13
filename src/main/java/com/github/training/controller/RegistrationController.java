@@ -2,6 +2,7 @@ package com.github.training.controller;
 
 import com.github.training.controller.request.RegisterAccountRequest;
 import com.github.training.database.Account;
+import com.github.training.database.Currency;
 import com.github.training.database.ShippingInformation;
 import com.github.training.validation.RegisterAccountRequestValidation;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.time.LocalDate;
 
 @RestController
 @Slf4j
@@ -29,7 +32,7 @@ public class RegistrationController {
         account.setUsername(registerAccountRequest.getUsername());
         account.setPassword(registerAccountRequest.getPassword());
         account.setEmail(registerAccountRequest.getEmail());
-        account.setCurrency(registerAccountRequest.getCurrency());
+        account.setCurrency(Currency.valueOf(registerAccountRequest.getCurrency()));
 
         ShippingInformation shippingInformation = new ShippingInformation();
 
@@ -42,6 +45,6 @@ public class RegistrationController {
         shippingInformation.setFloor(registerAccountRequest.getAddress().getFloor());
         shippingInformation.setDoor(registerAccountRequest.getAddress().getDoor());
         shippingInformation.setPhoneNumber(registerAccountRequest.getPhoneNumber());
-        shippingInformation.setBirthDate(registerAccountRequest.getBirthDate());
+        shippingInformation.setBirthDate(LocalDate.parse(registerAccountRequest.getBirthDate()));
     }
 }
