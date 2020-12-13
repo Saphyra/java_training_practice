@@ -2,6 +2,8 @@ package com.github.training.database;
 
 import lombok.Data;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import java.util.UUID;
 
@@ -13,6 +15,7 @@ public class Account {
     private String username; //nick
     private String password;
     private String email;
-    private String currency;
+    @Enumerated(EnumType.STRING)
+    private Currency currency;
 
 }
