@@ -68,7 +68,7 @@
         name: name,
         address: {
             country: country,
-            zipcode: zipcode,
+            zipCode: zipcode,
             city: city,
             street: street,
             houseNumber: houseNumber,
@@ -83,8 +83,32 @@
     const request = new XMLHttpRequest();
     request.open("POST", "/registration", 1);
     request.setRequestHeader("Content-Type", "application/json");
-    request.send(JSON.stringify(data));
+    request.onload = function(){
+        const responseStatus = request.status;
+        const responseText = request.responseText;
 
+        if(responseStatus == 200){
+            alert("Registration successful");
+            //TODO auto-login
+        }else{
+            const errorResponse = parseResponse(responseText);
+            if(errorResponse.errorMessage){
+                alert(errorResponse.errorMessage);
+            }else{
+                alert("Unknown error: " + responseStatus + " - " + responseText);
+            }
+        }
+
+        function parseResponse(responseText){
+            try{
+                return JSON.parse(responseText);
+            }catch(e){
+                return {};
+            }
+        }
+    }
+
+    request.send(JSON.stringify(data));
 
     function isEmailValid(email){
         let result;

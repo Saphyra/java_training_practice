@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.time.LocalDate;
 import java.util.UUID;
 
+import static org.apache.commons.lang3.StringUtils.isBlank;
+
 @RestController
 @Slf4j
 @RequiredArgsConstructor
@@ -21,10 +23,10 @@ public class RegistrationController {
     private final ShippingInformationRepository shippingInformationRepository;
 
     @PostMapping("/registration")
-    public void registration(@RequestBody RegisterAccountRequest registerAccountRequest){
+    public void registration(@RequestBody RegisterAccountRequest registerAccountRequest) {
         log.info("Registration request test arrived: {}", registerAccountRequest);
         boolean regAccVal = registerAccountRequestValidation.registerAccountValidation(registerAccountRequest);
-        if (regAccVal == false){
+        if (regAccVal == false) {
             log.error("Nem megfelelő adatok");
             throw new IllegalArgumentException("Nem megfelelő adatok");
         }
@@ -48,7 +50,9 @@ public class RegistrationController {
         shippingInformation.setFloor(registerAccountRequest.getAddress().getFloor());
         shippingInformation.setDoor(registerAccountRequest.getAddress().getDoor());
         shippingInformation.setPhoneNumber(registerAccountRequest.getPhoneNumber());
-        shippingInformation.setBirthDate(LocalDate.parse(registerAccountRequest.getBirthDate()));
+        if (!isBlank(registerAccountRequest.getBirthDate())) {
+            shippingInformation.setBirthDate(LocalDate.parse(registerAccountRequest.getBirthDate()));
+        }
 
         accountRepository.save(account);
         shippingInformationRepository.save(shippingInformation);
