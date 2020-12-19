@@ -1,9 +1,7 @@
 package com.github.training.controller;
 
 import com.github.training.controller.request.RegisterAccountRequest;
-import com.github.training.database.Account;
-import com.github.training.database.Currency;
-import com.github.training.database.ShippingInformation;
+import com.github.training.database.*;
 import com.github.training.validation.RegisterAccountRequestValidation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,23 +10,29 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
+import java.util.UUID;
+
+import static org.apache.commons.lang3.StringUtils.isBlank;
 
 @RestController
 @Slf4j
 @RequiredArgsConstructor
 public class RegistrationController {
     private final RegisterAccountRequestValidation registerAccountRequestValidation;
+    private final AccountRepository accountRepository;
+    private final ShippingInformationRepository shippingInformationRepository;
 
     @PostMapping("/registration")
-    public void registration(@RequestBody RegisterAccountRequest registerAccountRequest){
+    public void registration(@RequestBody RegisterAccountRequest registerAccountRequest) {
         log.info("Registration request test arrived: {}", registerAccountRequest);
         boolean regAccVal = registerAccountRequestValidation.registerAccountValidation(registerAccountRequest);
-        if (regAccVal == false){
+        if (regAccVal == false) {
             log.error("Nem megfelelő adatok");
             throw new IllegalArgumentException("Nem megfelelő adatok");
         }
         Account account = new Account();
 
+        account.setUserId(UUID.randomUUID());
         account.setUsername(registerAccountRequest.getUsername());
         account.setPassword(registerAccountRequest.getPassword());
         account.setEmail(registerAccountRequest.getEmail());
@@ -36,6 +40,7 @@ public class RegistrationController {
 
         ShippingInformation shippingInformation = new ShippingInformation();
 
+        shippingInformation.setUserId(account.getUserId());
         shippingInformation.setName(registerAccountRequest.getName());
         shippingInformation.setCountry(registerAccountRequest.getAddress().getCountry());
         shippingInformation.setZipCode(registerAccountRequest.getAddress().getZipCode());
@@ -45,6 +50,11 @@ public class RegistrationController {
         shippingInformation.setFloor(registerAccountRequest.getAddress().getFloor());
         shippingInformation.setDoor(registerAccountRequest.getAddress().getDoor());
         shippingInformation.setPhoneNumber(registerAccountRequest.getPhoneNumber());
-        shippingInformation.setBirthDate(LocalDate.parse(registerAccountRequest.getBirthDate()));
+        if (!isBlank(registerAccountRequest.getBirthDate())) {
+            shippingInformation.setBirthDate(LocalDate.parse(registerAccountRequest.getBirthDate()));
+        }
+
+        accountRepository.save(account);
+        shippingInformationRepository.save(shippingInformation);
     }
 }

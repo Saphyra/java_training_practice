@@ -9,3 +9,6 @@ liquibase:
   changelog:
     location: classpath:/database/changelog-master.xml
   schema: public
+
+server:
+  port: 10000
