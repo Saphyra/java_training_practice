@@ -21,6 +21,7 @@
         </createTable>
         <addPrimaryKey tableName="account" columnNames="user_id" schemaName="public"/>
     </changeSet>
+
     <changeSet id="create_table_shipping_information" author="magyariotto">
         <preConditions onFail="MARK_RAN">
             <not>
@@ -41,5 +42,20 @@
             <column name="birth_date" type="date"/>
         </createTable>
         <addPrimaryKey tableName="shipping_information" columnNames="user_id" schemaName="public"/>
+    </changeSet>
+
+    <changeSet id="create_table_login_session" author="magyariotto">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="login_session" schemaName="public"/>
+            </not>
+        </preConditions>
+        <createTable tableName="login_session" schemaName="public">
+            <column name="session_id" type="UUID"/>
+            <column name="user_id" type="UUID"/>
+            <column name="remember" type="boolean"/>
+            <column name="last_access" type="datetime"/>
+        </createTable>
+        <addPrimaryKey tableName="login_session" columnNames="session_id" schemaName="public"/>
     </changeSet>
 </databaseChangeLog>
