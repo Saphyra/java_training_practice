@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+
 import static java.util.Objects.isNull;
 
 @RequiredArgsConstructor
@@ -23,7 +26,7 @@ public class LoginController {
     private final LoginSessionService loginSessionService;
 
     @PostMapping("/login")
-    public void login(@RequestBody LoginAccountRequest loginAccountRequest){
+    public void login(@RequestBody LoginAccountRequest loginAccountRequest, HttpServletResponse response){
         log.info("Login request test arrived: {}", loginAccountRequest);
         boolean logAccVal = loginAccountRequestValidation.loginAccountValidation(loginAccountRequest);
         if (!logAccVal) {
@@ -40,5 +43,12 @@ public class LoginController {
         }
         LoginSession loginSession = loginSessionService.createSession(account.getUserId(), loginAccountRequest.isRemember());
 
+        Cookie cookie = new Cookie("session-id", loginSession.getSessionId().toString());
+        cookie.setHttpOnly(true);
+        cookie.setPath("/");
+        int expiry = loginSession.isRemember() ? Integer.MAX_VALUE : 600;
+        cookie.setMaxAge(expiry);
+
+        response.addCookie(cookie);
     }
 }
