@@ -3,8 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <title>Product Page</title>
+
+    <LINK rel="stylesheet" href="/css/index.css">
 </head>
 <body>
+
+<DIV id="top-bar" class="vertical-bar">
+    <DIV id="logo-container" class="left-bar">LOGO</DIV>
+    <DIV id="search-container" class="middle-bar">
+        <INPUT type="text" id="search-input" placeholder="Search">
+        <BUTTON>Search</BUTTON>
+    </DIV>
+    <DIV id="account-container" class="right-bar">
+        <DIV th:if="${userLoggedIn}">
+            <SPAN>Hello, <SPAN th:text="${username}"></SPAN></SPAN>
+            <BUTTON onclick="window.location.href='/account'">Account</BUTTON>
+            <BUTTON onclick="logout()">Logout</BUTTON>
+        </DIV>
+        <DIV th:unless="${userLoggedIn}">
+            <BUTTON onclick="window.location.href='/login'">Login</BUTTON>
+            <BUTTON onclick="window.location.href='/registration'">Create account</BUTTON>
+        </DIV>
+    </DIV>
+</DIV>
+
+<DIV id="nav-bar" class="vertical-bar">NAV-BAR</DIV>
+
+<DIV id="bot-bar" class="vertical-bar">
+    <DIV id="filter-container" class="left-bar">FILTER</DIV>
+    <DIV id="products-container" class="middle-bar">PRODUCTS</DIV>
+    <DIV id="ads-container" class="right-bar">ADS</DIV>
+</DIV>
 
 </body>
 </html>

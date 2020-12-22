@@ -1,0 +1,65 @@
+:root{
+    --top-bar-height: 5rem;
+    --nav-bar-height: 3rem;
+    --bot-bar-height: calc(100% - var(--top-bar-height) - var(--nav-bar-height));
+}
+
+*{
+    box-sizing: border-box;
+}
+
+.vertical-bar{
+    border: 3px ridge black;
+}
+
+    #top-bar{
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: var(--top-bar-height);
+    }
+
+    #nav-bar{
+        position: absolute;
+        top: var(--top-bar-height);
+        left: 0;
+        right: 0;
+        height: var(--nav-bar-height);
+        border-top: none;
+        border-bottom: none;
+    }
+
+    #bot-bar{
+        position: absolute;
+        height: var(--bot-bar-height);
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+
+.left-bar{
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 30%;
+    border-right: 3px ridge black;
+}
+
+.middle-bar{
+    position: absolute;
+    left: 30%;
+    right: 30%;
+    top: 0;
+    bottom: 0;
+}
+
+.right-bar{
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 30%;
+    border-left: 3px ridge black;
+}
