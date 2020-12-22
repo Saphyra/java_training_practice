@@ -89,8 +89,7 @@
 
         if(responseStatus == 200){
             alert("Registration successful");
-            //TODO auto-login
-            window.location.href = "/index"
+            window.location.href = "/login"
         }else{
             const errorResponse = parseResponse(responseText);
             if(errorResponse.errorMessage){

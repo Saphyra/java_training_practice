@@ -17,8 +17,6 @@ function login(){
         const responseText = request.responseText;
 
         if(responseStatus == 200){
-            alert("Login successful");
-            //TODO login
             window.location.href = "/index";
         }else{
             const errorResponse = parseResponse(responseText);
