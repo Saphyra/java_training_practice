@@ -26,7 +26,7 @@ public class RegistrationController {
     public void registration(@RequestBody RegisterAccountRequest registerAccountRequest) {
         log.info("Registration request test arrived: {}", registerAccountRequest);
         boolean regAccVal = registerAccountRequestValidation.registerAccountValidation(registerAccountRequest);
-        if (regAccVal == false) {
+        if (!regAccVal) {
             log.error("Nem megfelelő adatok");
             throw new IllegalArgumentException("Nem megfelelő adatok");
         }

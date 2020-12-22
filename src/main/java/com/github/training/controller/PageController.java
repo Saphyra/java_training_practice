@@ -12,5 +12,9 @@ public class PageController {
     public String registration(){
         return "registration";
     }
-}
 
+    @GetMapping("/login")
+    public String login(){
+        return "login";
+    }
+}
