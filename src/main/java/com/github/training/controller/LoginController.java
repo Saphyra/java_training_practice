@@ -1,5 +1,6 @@
 package com.github.training.controller;
 
+import com.github.training.config.ConfigProperties;
 import com.github.training.controller.request.LoginAccountRequest;
 import com.github.training.database.Account;
 import com.github.training.database.AccountRepository;
@@ -26,6 +27,7 @@ public class LoginController {
     private final AccountRepository accountRepository;
     private final LoginAccountRequestValidation loginAccountRequestValidation;
     private final LoginSessionService loginSessionService;
+    private final ConfigProperties configProperties;
 
     @PostMapping("/login")
     public void login(@RequestBody LoginAccountRequest loginAccountRequest, HttpServletResponse response) {
@@ -48,7 +50,7 @@ public class LoginController {
         Cookie cookie = new Cookie("session-id", loginSession.getSessionId().toString());
         cookie.setHttpOnly(true);
         cookie.setPath("/");
-        int expiry = loginSession.isRemember() ? Integer.MAX_VALUE : 600;
+        int expiry = loginSession.isRemember() ? Integer.MAX_VALUE : configProperties.getSessionExpirationSeconds();
         cookie.setMaxAge(expiry);
 
         response.addCookie(cookie);
