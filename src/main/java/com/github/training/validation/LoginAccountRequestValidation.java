@@ -12,13 +12,14 @@ import static org.apache.logging.log4j.util.Strings.isBlank;
 @Component
 public class LoginAccountRequestValidation {
     private final AccountRepository accountRepository;
-    public boolean loginAccountValidation(LoginAccountRequest loginAccountRequest){
+
+    public boolean loginAccountValidation(LoginAccountRequest loginAccountRequest) {
         //Username
-        if(isBlank(loginAccountRequest.getEmail())){
+        if (isBlank(loginAccountRequest.getEmail())) {
             return false;
         }
         //Password
-        if (isNull(loginAccountRequest.getPassword())){
+        if (isNull(loginAccountRequest.getPassword())) {
             return false;
         }
         return true;

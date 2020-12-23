@@ -12,7 +12,8 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class LoginSessionService {
     private final LoginSessionRepository loginSessionRepository;
-    public LoginSession createSession(UUID userId, boolean remember){
+
+    public LoginSession createSession(UUID userId, boolean remember) {
         LoginSession loginSession = new LoginSession();
 
         loginSession.setUserId(userId);
