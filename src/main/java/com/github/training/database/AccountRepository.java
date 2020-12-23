@@ -11,4 +11,6 @@ public interface AccountRepository extends CrudRepository<Account, UUID> {
 
     Account findByEmail(String email);
 
+    Account findByUserId(UUID userId);
+
 }

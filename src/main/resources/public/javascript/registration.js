@@ -88,7 +88,6 @@
         const responseText = request.responseText;
 
         if(responseStatus == 200){
-            alert("Registration successful");
             window.location.href = "/login"
         }else{
             const errorResponse = parseResponse(responseText);

@@ -17,7 +17,7 @@
         <DIV th:if="${userLoggedIn}">
             <SPAN>Hello, <SPAN th:text="${username}"></SPAN></SPAN>
             <BUTTON onclick="window.location.href='/account'">Account</BUTTON>
-            <BUTTON onclick="logout()">Logout</BUTTON>
+            <BUTTON onclick="window.location.href='/logout'">Logout</BUTTON>
         </DIV>
         <DIV th:unless="${userLoggedIn}">
             <BUTTON onclick="window.location.href='/login'">Login</BUTTON>
