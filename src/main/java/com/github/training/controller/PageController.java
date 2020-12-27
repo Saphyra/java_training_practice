@@ -63,4 +63,12 @@ public class PageController {
 
         return "redirect:/index";
     }
+
+    @GetMapping("/account")
+    public ModelAndView account(@CookieValue(name = "session-id") UUID sessionId){
+        log.info("Account page called");
+        ModelAndView mav = new ModelAndView("account");
+
+        return mav;
+    }
 }
