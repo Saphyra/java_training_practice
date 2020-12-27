@@ -36,5 +36,19 @@ function login(){
         }
     }
     request.send(JSON.stringify(data));
+}
 
+$(document).ready(init);
+
+function init(){
+    document.getElementById("email").onkeyup = function(e){
+        if(e.which == 13){
+            login();
+        }
+    }
+    document.getElementById("password").onkeyup = function(e){
+        if(e.which == 13){
+            login();
+        }
+    }
 }
