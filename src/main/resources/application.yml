@@ -10,5 +10,8 @@ liquibase:
     location: classpath:/database/changelog-master.xml
   schema: public
 
+session:
+  expirationSeconds: 600
+
 server:
   port: 10000

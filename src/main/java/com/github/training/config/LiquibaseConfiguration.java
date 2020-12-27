@@ -1,8 +1,6 @@
 package com.github.training.config;
 
 import liquibase.integration.spring.SpringLiquibase;
-
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -17,6 +15,7 @@ import java.sql.Statement;
 @Slf4j
 public class LiquibaseConfiguration {
     private final static String CREATE_SCHEMA_SQL = "create schema if not exists %s";
+
     @Bean
     public SpringLiquibase liquibase(
             DataSource dataSource,
@@ -35,7 +34,7 @@ public class LiquibaseConfiguration {
         Connection connection = dataSource.getConnection();
         Statement statement = connection.createStatement();
 
-        statement.execute(String.format(CREATE_SCHEMA_SQL,schema));
+        statement.execute(String.format(CREATE_SCHEMA_SQL, schema));
 
         statement.close();
         connection.close();

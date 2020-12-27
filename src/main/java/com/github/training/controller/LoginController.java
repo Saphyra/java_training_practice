@@ -1,5 +1,6 @@
 package com.github.training.controller;
 
+import com.github.training.config.ConfigProperties;
 import com.github.training.controller.request.LoginAccountRequest;
 import com.github.training.database.Account;
 import com.github.training.database.AccountRepository;
@@ -26,9 +27,10 @@ public class LoginController {
     private final AccountRepository accountRepository;
     private final LoginAccountRequestValidation loginAccountRequestValidation;
     private final LoginSessionService loginSessionService;
+    private final ConfigProperties configProperties;
 
     @PostMapping("/login")
-    public void login(@RequestBody LoginAccountRequest loginAccountRequest, HttpServletResponse response){
+    public void login(@RequestBody LoginAccountRequest loginAccountRequest, HttpServletResponse response) {
         log.info("Login request test arrived: {}", loginAccountRequest);
         boolean logAccVal = loginAccountRequestValidation.loginAccountValidation(loginAccountRequest);
         if (!logAccVal) {
@@ -37,18 +39,18 @@ public class LoginController {
         }
         Account account = accountRepository.findByEmail(loginAccountRequest.getEmail());
 
-        if (isNull(account)){
-            throw new RestException("Nem letezik ilyen felhasznalo." , HttpStatus.UNAUTHORIZED, "Nem letezik ilyen felhasznalo.");
+        if (isNull(account)) {
+            throw new RestException("Nem letezik ilyen felhasznalo.", HttpStatus.UNAUTHORIZED, "Nem letezik ilyen felhasznalo.");
         }
-        if (!account.getPassword().equals(loginAccountRequest.getPassword())){
-            throw new RestException("Nem megfelelo jelszo." , HttpStatus.UNAUTHORIZED, "Nem megfelelo jelszo.");
+        if (!account.getPassword().equals(loginAccountRequest.getPassword())) {
+            throw new RestException("Nem megfelelo jelszo.", HttpStatus.UNAUTHORIZED, "Nem megfelelo jelszo.");
         }
         LoginSession loginSession = loginSessionService.createSession(account.getUserId(), loginAccountRequest.isRemember());
 
         Cookie cookie = new Cookie("session-id", loginSession.getSessionId().toString());
         cookie.setHttpOnly(true);
         cookie.setPath("/");
-        int expiry = loginSession.isRemember() ? Integer.MAX_VALUE : 600;
+        int expiry = loginSession.isRemember() ? Integer.MAX_VALUE : configProperties.getSessionExpirationSeconds();
         cookie.setMaxAge(expiry);
 
         response.addCookie(cookie);
