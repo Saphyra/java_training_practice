@@ -83,6 +83,7 @@
     const request = new XMLHttpRequest();
     request.open("POST", "/registration", 1);
     request.setRequestHeader("Content-Type", "application/json");
+    request.setRequestHeader("Request-Type", "rest");
     request.onload = function(){
         const responseStatus = request.status;
         const responseText = request.responseText;
