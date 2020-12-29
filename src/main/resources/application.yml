@@ -20,3 +20,7 @@ endpoint-protection:
   protectedEndpoints:
   - pathPattern: /account
     method: GET
+
+loginSession:
+  cleanup:
+    intervalMillis: 10000
