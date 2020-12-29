@@ -1,5 +1,6 @@
 package com.github.training.controller;
 
+import com.github.saphyra.encryption.impl.PasswordService;
 import com.github.training.config.ConfigProperties;
 import com.github.training.controller.request.LoginAccountRequest;
 import com.github.training.database.Account;
@@ -28,6 +29,7 @@ public class LoginController {
     private final LoginAccountRequestValidation loginAccountRequestValidation;
     private final LoginSessionService loginSessionService;
     private final ConfigProperties configProperties;
+    private final PasswordService passwordService;
 
     @PostMapping("/login")
     public void login(@RequestBody LoginAccountRequest loginAccountRequest, HttpServletResponse response) {
@@ -42,7 +44,7 @@ public class LoginController {
         if (isNull(account)) {
             throw new RestException("Nem letezik ilyen felhasznalo.", HttpStatus.UNAUTHORIZED, "Nem letezik ilyen felhasznalo.");
         }
-        if (!account.getPassword().equals(loginAccountRequest.getPassword())) {
+        if (!passwordService.authenticate(loginAccountRequest.getPassword(), account.getPassword())) {
             throw new RestException("Nem megfelelo jelszo.", HttpStatus.UNAUTHORIZED, "Nem megfelelo jelszo.");
         }
         LoginSession loginSession = loginSessionService.createSession(account.getUserId(), loginAccountRequest.isRemember());
