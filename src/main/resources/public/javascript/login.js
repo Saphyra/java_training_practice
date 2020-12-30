@@ -12,6 +12,7 @@ function login(){
     const request = new XMLHttpRequest();
     request.open("POST", "/login", 1);
     request.setRequestHeader("Content-Type", "application/json");
+    request.setRequestHeader("Request-Type", "rest");
     request.onload = function(){
         const responseStatus = request.status;
         const responseText = request.responseText;
@@ -36,5 +37,19 @@ function login(){
         }
     }
     request.send(JSON.stringify(data));
+}
 
+$(document).ready(init);
+
+function init(){
+    document.getElementById("email").onkeyup = function(e){
+        if(e.which == 13){
+            login();
+        }
+    }
+    document.getElementById("password").onkeyup = function(e){
+        if(e.which == 13){
+            login();
+        }
+    }
 }

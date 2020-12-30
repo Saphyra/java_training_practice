@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @Slf4j
 public class ErrorHandler {
     @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<ErrorResponse> illegalArgument() {
+    public ResponseEntity<ErrorResponse> illegalArgument(IllegalArgumentException e) {
+        log.info("Illegal argument", e);
         ErrorResponse errorResponse = new ErrorResponse("Hiba: Érvénytelen kérelem.");
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }

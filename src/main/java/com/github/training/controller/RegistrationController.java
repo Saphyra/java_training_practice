@@ -1,5 +1,6 @@
 package com.github.training.controller;
 
+import com.github.saphyra.encryption.impl.PasswordService;
 import com.github.training.controller.request.RegisterAccountRequest;
 import com.github.training.database.*;
 import com.github.training.validation.RegisterAccountRequestValidation;
@@ -21,6 +22,7 @@ public class RegistrationController {
     private final RegisterAccountRequestValidation registerAccountRequestValidation;
     private final AccountRepository accountRepository;
     private final ShippingInformationRepository shippingInformationRepository;
+    private final PasswordService passwordService;
 
     @PostMapping("/registration")
     public void registration(@RequestBody RegisterAccountRequest registerAccountRequest) {
@@ -34,7 +36,7 @@ public class RegistrationController {
 
         account.setUserId(UUID.randomUUID());
         account.setUsername(registerAccountRequest.getUsername());
-        account.setPassword(registerAccountRequest.getPassword());
+        account.setPassword(passwordService.hashPassword(registerAccountRequest.getPassword()));
         account.setEmail(registerAccountRequest.getEmail());
         account.setCurrency(Currency.valueOf(registerAccountRequest.getCurrency()));
 

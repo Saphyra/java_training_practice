@@ -3,8 +3,11 @@ package com.github.training.validation;
 
 import com.github.training.controller.request.RegisterAccountRequest;
 import com.github.training.database.AccountRepository;
+import com.github.training.error_handler.RestException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestClientException;
 
 import java.util.regex.Pattern;
 
@@ -19,7 +22,6 @@ public class RegisterAccountRequestValidation {
 
     private final AccountRepository accountRepository;
 
-
     public boolean registerAccountValidation(RegisterAccountRequest registerAccountRequest) {
         //Username
         if (isBlank(registerAccountRequest.getUsername())) {
@@ -29,7 +31,7 @@ public class RegisterAccountRequestValidation {
             return false;
         }
         if (accountRepository.existsByUsername(registerAccountRequest.getUsername())) {
-            return false;
+            throw new RestException("Username already exists", HttpStatus.BAD_REQUEST, "Username already exists");
         }
         //password
         if (isNull(registerAccountRequest.getPassword())) {
@@ -46,13 +48,12 @@ public class RegisterAccountRequestValidation {
             return false;
         }
         if (accountRepository.existsByEmail(registerAccountRequest.getEmail())) {
-            return false;
+            throw new RestException("Email already exists", HttpStatus.BAD_REQUEST, "Email already exists");
         }
         //name
         if (!isBlank(registerAccountRequest.getName()) && registerAccountRequest.getName().length() > 64) {
             return false;
         }
         return true;
-
     }
 }
