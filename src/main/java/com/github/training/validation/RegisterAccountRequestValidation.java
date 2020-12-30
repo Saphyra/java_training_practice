@@ -7,7 +7,6 @@ import com.github.training.error_handler.RestException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestClientException;
 
 import java.util.regex.Pattern;
 
