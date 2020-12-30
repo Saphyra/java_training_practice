@@ -7,5 +7,66 @@
 </head>
 <body>
 
+<fieldset>
+    <legend>Account information</legend>
+    <div>
+        <label>Username:<input type="text" id="username" placeholder="Username"></label>
+    </div>
+    <div>
+        <label>Name:<input type="text" id="name" placeholder="Name"></label>
+    </div>
+    <div>
+        <label> Phone number:<input type="text" id="phoneNumber" placeholder="Phone number"></label>
+    </div>
+    <div>
+        <label>Birth date:<input type="date" id="birthDate" placeholder="Birth Date"></label>
+    </div>
+    <div><label for="currency">Currency:</label>
+        <select name="currency" id="currency">
+            <option value="HUF">HUF</option>
+            <option value="EUR">EUR</option>
+            <option value="USD">USD</option>
+        </select>
+    </div>
+</fieldset>
+<fieldset>
+    <legend>Adress(Optional):</legend>
+    <div>
+        <label>Country:<input type="text" id="country" placeholder="Country"></label>
+    </div>
+    <div>
+        <label>ZipCode:<input type="text" id="zipcode" placeholder="ZipCode"></label>
+    </div>
+    <div>
+        <label>City:<input type="text" id="city" placeholder="City"></label>
+    </div>
+    <div>
+        <label>Street:<input type="text" id="street" placeholder="Street"></label>
+    </div>
+    <div>
+        <label>House Number:<input type="text" id="houseNumber" placeholder="House Number"></label>
+    </div>
+    <div>
+        <label>Floor:<input type="text" id="floor" placeholder="Floor"></label>
+    </div>
+    <div>
+        <label>Door:<input type="text" id="door" placeholder="Door"></label>
+    </div>
+</fieldset>
+<fieldset>
+    <legend>Login Information</legend>
+    <div>
+        <label>Email:<input type="email" id="email" placeholder="E-mail"></label>
+    </div>
+
+    <div>
+        <label> Password:<input type="password" id="password" placeholder="Password"></label>
+    </div>
+</fieldset>
+
+<div>
+    <button onclick="saveChanges()">Save changes</button>
+</div>
+
 </body>
 </html>
